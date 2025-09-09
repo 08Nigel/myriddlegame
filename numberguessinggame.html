@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+<div id="splash-screen">
+    <video id="splash-video" muted playsinline autoplay>
+      <source src="myicon.ico.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div id="main-content" style="display: none;">
+    <!-- Your main content here -->
+
+
+    <div id="group2">
+      <div>
+         <label id="lab1" for="colorPicker">Pick a Background Color</label>
+                <input type="color" id="colorPicker" value=" rgb(250, 0 , 171)"><br>
+      </div>
+        <div>
+            <button id="quizopen">Riddles</button>
+        </div>
+    <input type = 'number' id="guess-text" placeholder="Enter A Number" maxlength="1">
+    <p id="answer"></p>
+    <button id="guesstheanswer">Guess</button>
+    <h3>Please enter a number from 1 to 9</h3>
+    <p id="dumbmessage">Winnig In This Game Is Nearly Impossible Challenge Yourself</p>
+    <button id="exitbtn">Quit Game</button>
+    </div>
+    </div>
+   <script>
+     // change background color picker
+ document.getElementById("colorPicker").addEventListener("input", function(){
+  document.body.style.backgroundColor = this.value;
+ })
+     // splash screen timeout
+  const splashScreen = document.getElementById('splash-screen')
+  const splashVideo = document.getElementById('splash-video')
+  const mainContent = document.getElementById('main-content')
+  splashVideo.addEventListener('ended', () => {
+    splashScreen.style.display = 'none'
+    mainContent.style.display = 'block'
+  })
+    //
+  const msg = document.getElementById("answer");
+const button = document.getElementById("guesstheanswer");
+const text = document.getElementById("guess-text");
+
+let randomNumbers;
+let gameStarted = false;
+
+button.addEventListener("click", getNumbers);
+
+function startGame() {
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    randomNumbers = numbers[Math.floor(Math.random() * numbers.length)];
+    gameStarted = true;
+    msg.textContent = "Guess a number!";
+    msg.style.color = "black";
+}
+
+function getNumbers() {
+    if (!gameStarted) {
+        startGame();
+    }
+
+    let num = parseInt(text.value);
+
+    if (num === randomNumbers) {
+        msg.style.color = "green";
+        msg.textContent = "Correct! You won!";
+        gameStarted = false;
+    } else {
+        msg.style.color = "red";
+        msg.textContent = `Try again!`;
+    }
+}
+ // number riddles game page
+  document.getElementById("quizopen").addEventListener("click", function() {
+    window.location.href = 'index.html'
+  })
+  // Exit button (quit)
+   // close buttoon
+    function closebutton(){
+       const closeme = document.getElementById('exitbtn')
+       window.close()
+    }
+    closeme.addEventListener("click", closebutton)
+    </script>
+</body>
+</html>
